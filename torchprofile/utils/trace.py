@@ -1,3 +1,11 @@
+'''
+Author: Beta Cat 466904389@qq.com
+Date: 2023-06-25 20:31:12
+LastEditors: Beta Cat 466904389@qq.com
+LastEditTime: 2023-06-30 17:03:51
+FilePath: /GT2023/torchprofile/examples/torchprofile/utils/trace.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+'''
 import warnings
 
 import torch
@@ -15,7 +23,6 @@ def trace(model, args=(), kwargs=None):
 
     with warnings.catch_warnings(record=True):
         graph, _ = torch.jit._get_trace_graph(Flatten(model), args, kwargs)
-
     variables = dict()
     for x in graph.nodes():
         for v in list(x.inputs()) + list(x.outputs()):
@@ -30,7 +37,6 @@ def trace(model, args=(), kwargs=None):
                     name=v.debugName(),
                     dtype=str(v.type()),
                 )
-
     nodes = []
     for x in graph.nodes():
         node = Node(
